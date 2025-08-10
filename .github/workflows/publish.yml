@@ -3,7 +3,7 @@ name: Upload Python Package
 on:
   push:
     tags:
-      - 'v*'  # only publish when a version tag is pushed
+      - 'v*'  # Runs only when pushing tags like v0.1.0
 
 jobs:
   build:
@@ -15,15 +15,17 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
         python-version: '3.x'
+
     - name: Install dependencies
       run: pip install build
+
     - name: Build package
       run: python -m build
+
     - name: Publish to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
-      with:
-        repository-url: https://upload.pypi.org/legacy/
